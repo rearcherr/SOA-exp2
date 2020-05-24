@@ -180,7 +180,20 @@ public class AccountController {
     }
 
 
-    @GetMapping("/account/{id}")
+
+
+    //获取所有的用户
+    @GetMapping("/searchAllAccount")
+    @ResponseBody
+    public List<Account>  getAccount() {
+        List<Account> account = accountService.getAccountList();
+        System.out.println(account);
+        return account;
+    }
+
+
+    //由用户名来获取用户
+    @GetMapping("/searchAccount/{id}")
     @ResponseBody
     public Account getAccountById(@PathVariable String id) {
         Account account = accountService.getAccount(id);

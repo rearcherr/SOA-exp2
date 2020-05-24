@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class AccountService {
 
@@ -21,6 +23,10 @@ public class AccountService {
         account.setUsername(username);
         account.setPassword(password);
         return accountMapper.getAccountByUsernameAndPassword(account);
+    }
+
+    public List<Account> getAccountList(){
+        return accountMapper.getAccountList();
     }
 
     /*
@@ -41,4 +47,6 @@ public class AccountService {
             accountMapper.updateSignon(account);
         }
     }
+
+
 }

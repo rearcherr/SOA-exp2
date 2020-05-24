@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.domain.Account;
 import com.example.demo.domain.Category;
 import com.example.demo.domain.Item;
 import com.example.demo.domain.Product;
@@ -7,9 +8,7 @@ import com.example.demo.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,67 +19,48 @@ public class CatalogController {
     @Autowired
     private CatalogService catalogService;
 
-    //返回到主页面
-    @GetMapping("index")
-    public String index() {
-        return "catalog/main";
+
+
+    //通过categoryId查看商品列表
+    @GetMapping("/viewCategory/{id}")
+    @ResponseBody
+    public Category getCategoryById(@PathVariable String id) {
+        Category category = catalogService.getCategory(id);
+        return category;
     }
 
-    //查看商品列表
-    @GetMapping("viewCategory")
-    public String viewCategory(String categoryId, Model model) {
-        if (categoryId != null) {
-            List<Product> productList = catalogService.getProductListByCategory(categoryId);
-            Category category = catalogService.getCategory(categoryId);
-            model.addAttribute("productList", productList);
-            model.addAttribute("category", category);
-        }
-        return "catalog/category";
+    //通过productId查看商品内容
+    @GetMapping("/viewProduct/{id}")
+    @ResponseBody
+    public Product getProductById(@PathVariable String id) {
+        Product product = catalogService.getProduct(id);
+        return product;
     }
 
-    //查看商品内容
-    @GetMapping("viewProduct")
-    public String viewProduct(String productId, Model model) {
-        if (productId != null) {
-            List<Item> itemList = catalogService.getItemListByProduct(productId);
-            Product product = catalogService.getProduct(productId);
-            model.addAttribute("product", product);
-            model.addAttribute("itemList", itemList);
-        }
-        return "catalog/product";
+    //通过itemId查看Item
+    @GetMapping("/viewItem/{id}")
+    @ResponseBody
+    public Item getItemById(@PathVariable String id) {
+        Item item = catalogService.getItem(id);
+        return item;
     }
 
-    @GetMapping("viewItem")
-    public String viewItem(String itemId, Model model) {
-        Item item = catalogService.getItem(itemId);
-        Product product = item.getProduct();
-        processProductDescription(product);
-        model.addAttribute("item", item);
-        model.addAttribute("product", product);
-        return "catalog/item";
+    //新增Category
+    @PostMapping("newCategory")
+    @ResponseBody
+    public Category Creat(@RequestParam("catid")String categoryId, @RequestParam("name")String name, @RequestParam("descn")String description){
+        Category category = new Category();
+        category.setCategoryId(categoryId);
+        category.setName(name);
+        category.setDescription(description);
+        catalogService.insertCategory(category);
+        return category;
     }
 
-    @PostMapping("searchProducts")
-    public String searchProducts(String keyword, Model model) {
-        if (keyword == null || keyword.length() < 1) {
-            String msg = "Please enter a keyword to search for, then press the search button.";
-            model.addAttribute("msg", msg);
-            return "common/error";
-        } else {
-            List<Product> productList = catalogService.searchProductList(keyword.toLowerCase());
-            processProductDescription(productList);
-            model.addAttribute("productList", productList);
-            return "catalog/search_products";
-        }
 
-    }
 
-    /*
-        解决Thymeleaf将数据库中的Product的描述(description属性)中的<image>标签解析成普通文本的问题。
-        本方法在Product中添加了imageURL属性，相当于将product的描述信息分成两部分处理了。
-        同样，界面上也是用了两个标签了，一个img标签和一个lable标签。
-        此方法是快速解决上述问题的临时方案，更好的方法应是更改数据库结构，将图片信息和普通文字描述信息分为两个字段存储。
-     */
+
+
     private void processProductDescription(Product product) {
         String[] temp = product.getDescription().split("\"");
         product.setDescriptionImage("/"+temp[1]);

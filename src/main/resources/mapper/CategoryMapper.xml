@@ -17,4 +17,16 @@
         DESCN AS description
         FROM CATEGORY
     </select>
+
+
+
+    <insert id="insertCategory" parameterType="Category">
+        INSERT INTO CATEGORY
+        (catid, name, descn)
+        VALUES(
+            #{categoryId}, #{name}, #{description})
+    </insert>
+
+
+
 </mapper>

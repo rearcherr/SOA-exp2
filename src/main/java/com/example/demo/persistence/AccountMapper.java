@@ -1,7 +1,10 @@
 package com.example.demo.persistence;
 
 import com.example.demo.domain.Account;
+import com.example.demo.domain.Category;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface AccountMapper {
@@ -9,6 +12,8 @@ public interface AccountMapper {
     Account getAccountByUsername(String username);
 
     Account getAccountByUsernameAndPassword(Account account);
+
+    List<Account> getAccountList();
 
     void insertAccount(Account account);
 

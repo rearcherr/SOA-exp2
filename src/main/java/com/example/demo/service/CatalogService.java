@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 
+import com.example.demo.domain.Account;
 import com.example.demo.domain.Category;
 import com.example.demo.domain.Item;
 import com.example.demo.domain.Product;
@@ -9,6 +10,7 @@ import com.example.demo.persistence.ItemMapper;
 import com.example.demo.persistence.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -57,6 +59,10 @@ public class CatalogService {
 
     public void updateInventoryQuantity(Map<String, Object> param){
         itemMapper.updateInventoryQuantity(param);
+    }
+
+    public void insertCategory(Category category){
+        categoryMapper.insertCategory(category);
     }
 
 }
