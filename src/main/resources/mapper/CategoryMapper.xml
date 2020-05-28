@@ -10,6 +10,7 @@
         FROM CATEGORY
         WHERE CATID = #{categoryId}
     </select>
+
     <select id="getCategoryList" resultType="Category">
         SELECT
             CATID AS categoryId,
@@ -18,14 +19,24 @@
         FROM CATEGORY
     </select>
 
-
-
     <insert id="insertCategory" parameterType="Category">
         INSERT INTO CATEGORY
         (catid, name, descn)
         VALUES(
             #{categoryId}, #{name}, #{description})
     </insert>
+
+    <update id="updateCategory" parameterType="Category">
+        UPDATE CATEGORY SET
+            NAME = #{name},
+            DESCN = #{description}
+        WHERE CATID = #{categoryId}
+    </update>
+
+
+    <delete id="deleteCategory" parameterType="Category">
+        DELETE FROM CATEGORY WHERE CATID = #{categoryId}
+    </delete>
 
 
 

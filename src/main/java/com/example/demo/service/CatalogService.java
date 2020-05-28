@@ -61,8 +61,37 @@ public class CatalogService {
         itemMapper.updateInventoryQuantity(param);
     }
 
-    public void insertCategory(Category category){
+    public void insertCategory(Category category) {
         categoryMapper.insertCategory(category);
     }
 
+    public void insertProduct(Product product) {
+        productMapper.insertProduct(product);
+    }
+
+    public void insertItem(Item item){
+        itemMapper.insertItem(item);
+        itemMapper.insertInventory(item);
+    }
+
+    public void updateCategory(Category category){
+        categoryMapper.updateCategory(category);
+    }
+    public void updateProduct(Product product){
+        productMapper.updateProduct(product);
+    }
+    public void updateItem(Item item){
+        itemMapper.updateItem(item);
+        itemMapper.updateInventory(item);
+    }
+    public void deleteCategory(Category category){
+        categoryMapper.deleteCategory(category);
+    }
+    public void deleteProduct(Product product){
+        productMapper.deleteProduct(product);
+    }
+    public void deleteItem(Item item){
+        itemMapper.deleteItem(item);
+        itemMapper.deleteInventory(item);
+    }
 }

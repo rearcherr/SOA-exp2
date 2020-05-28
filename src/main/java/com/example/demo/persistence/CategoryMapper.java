@@ -13,4 +13,6 @@ public interface CategoryMapper {
     Category getCategory(String categoryId);
 
     void insertCategory(Category category);
+    void updateCategory(Category category);
+    void deleteCategory(Category category);
 }
