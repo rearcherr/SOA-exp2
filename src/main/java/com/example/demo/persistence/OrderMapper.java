@@ -1,5 +1,7 @@
 package com.example.demo.persistence;
 
+import com.example.demo.domain.Account;
+import com.example.demo.domain.LineItem;
 import com.example.demo.domain.Order;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +16,7 @@ public interface OrderMapper {
     void insertOrder(Order order);
 
     Order getOrder(int orderId);
-
     void insertOrderStatus(Order order);
+    List<LineItem> getLineItemList(int orderId);
+    List<Order> getOrderList();
 }

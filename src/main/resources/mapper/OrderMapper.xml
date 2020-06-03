@@ -37,6 +37,51 @@
         order by orderdate
     </select>
 
+    <select id="getOrderList" resultType="Order">
+    select
+        billaddr1 as billaddress1,
+        billaddr2 as billaddress2,
+        billcity,
+        billcountry,
+        billstate,
+        billtofirstname,
+        billtolastname,
+        billzip,
+        shipaddr1 as shipAddress1,
+        shipaddr2 as shipAddress2,
+        shipcity,
+        shipcountry,
+        shipstate,
+        shiptofirstname,
+        shiptolastname,
+        shipzip,
+        cardtype,
+        courier,
+        creditcard,
+        exprdate as expiryDate,
+        locale,
+        orderdate,
+        orders.orderid,
+        totalprice,
+        userid as username,
+        status
+
+    from orders, orderstatus
+    where orders.orderid = orderstatus.orderid
+        order by orderdate
+    </select>
+
+    <select id="getLineItemList" parameterType="int" resultType="LineItem">
+    select
+        orderid as orderId,
+        linenum as lineNumber,
+        itemid as itemId,
+        quantity,
+        unitprice as unitPrice
+    from lineitem
+    where lineitem.orderid = #{orderId}
+    </select>
+
     <select id="insertOrder" parameterType="Order">
     insert into orders (orderid, userid, orderdate, shipaddr1, shipaddr2, shipcity, shipstate,
         shipzip, shipcountry, billaddr1, billaddr2, billcity, billstate, billzip, billcountry,

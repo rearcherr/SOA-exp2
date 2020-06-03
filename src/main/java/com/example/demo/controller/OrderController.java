@@ -26,12 +26,14 @@ public class OrderController {
     @Autowired
     private CatalogService catalogService;
 
-    @GetMapping("/viewOrderList")
-    public String viewOrderList(@SessionAttribute("account") Account account, Model model) {
-        List<Order> orderList = orderService.getOrderListByUsername(account.getUsername());
-        model.addAttribute("orderList", orderList);
-        model.addAttribute("account", account);
-        return "order/orderList";
+
+
+//查看所有订单
+    @GetMapping("/viewAllOrder")
+    @ResponseBody
+    public List<Order> viewOrderList() {
+        List<Order> order = orderService.getOrderList();
+        return order;
     }
 
     @GetMapping("/viewOrder")
