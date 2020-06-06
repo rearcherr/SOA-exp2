@@ -130,4 +130,49 @@
         insert into orderstatus (orderid, linenum, timestamp, status)
     values (#{orderId,jdbcType=NUMERIC}, #{orderId,jdbcType=NUMERIC}, #{orderDate,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR})
     </select>
+
+
+    <update id="updateOrder" parameterType="Order">
+        UPDATE orders SET
+            userid = #{username},
+            orderdate = #{orderDate},
+            shipaddr1 = #{shipAddress1},
+            shipaddr2 = #{shipAddress2},
+            shipcity = #{shipCity},
+            shipstate = #{shipState},
+            shipzip = #{shipZip},
+            shipcountry = #{shipCountry},
+            billaddr1 = #{billAddress1},
+            billaddr2 = #{billAddress2},
+            billcity = #{billCity},
+            billstate = #{billState},
+            billzip = #{billZip},
+            billcountry = #{billCountry},
+            courier = #{courier},
+            totalprice = #{totalPrice},
+            billtofirstname = #{billToFirstName},
+            billtolastname = #{billToLastName},
+            shiptofirstname = #{shipToFirstName},
+            shiptolastname = #{shipToLastName},
+            creditcard = #{creditCard},
+            exprdate = #{expiryDate},
+            cardtype = #{cardType},
+            locale = #{locale}
+
+        WHERE orderid = #{orderId}
+    </update>
+
+
+    <update id="updateOrderStatus" parameterType="Order">
+        UPDATE orderstatus SET
+            linenum = #{linenum},
+            timestamp = #{orderDate},
+            status = #{status}
+
+
+        WHERE orderid = #{orderId}
+    </update>
+
+
+
 </mapper>

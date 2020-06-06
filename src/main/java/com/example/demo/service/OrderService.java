@@ -1,8 +1,10 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Account;
+import com.example.demo.domain.LineItem;
 import com.example.demo.domain.Order;
 import com.example.demo.persistence.OrderMapper;
+import com.sun.org.apache.xpath.internal.operations.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,11 @@ public class OrderService {
     }
 
     public Order getOrder(int orderId) {
-        return orderMapper.getOrder(orderId);
+        Order order = orderMapper.getOrder(orderId);
+        List<LineItem> lineItems = orderMapper.getLineItemList(orderId);
+        order.setLineItems(lineItems);
+
+        return order;
     }
 
     public void insertOrder(Order order){
@@ -40,7 +46,15 @@ public class OrderService {
         return orderList1;
     }
 
+
+
     public void insertOrderStatus(Order order){
         orderMapper.insertOrderStatus(order);
     }
+
+    public void updateOrder(Order order){
+        orderMapper.updateOrder(order);
+        orderMapper.updateOrderStatus(order);
+    }
+
 }

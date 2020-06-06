@@ -38,6 +38,12 @@ public class Order implements Serializable {
     private String locale;
     private String status;
     private List<LineItem> lineItems = new ArrayList<LineItem>();
+    private int linenum;
+
+    public int getLinenum()
+    {return linenum;}
+
+    public void setLinenum(int linenum){this.linenum=linenum;}
 
     public int getOrderId() {
         return orderId;

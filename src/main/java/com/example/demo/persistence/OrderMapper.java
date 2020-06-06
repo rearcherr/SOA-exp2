@@ -19,4 +19,6 @@ public interface OrderMapper {
     void insertOrderStatus(Order order);
     List<LineItem> getLineItemList(int orderId);
     List<Order> getOrderList();
+    void updateOrder(Order order);
+    void updateOrderStatus(Order order);
 }

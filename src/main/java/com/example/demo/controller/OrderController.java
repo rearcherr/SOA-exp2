@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.util.*;
 
 @SessionAttributes({"account", "myList", "authenticated", "cart", "order"})
@@ -28,13 +29,138 @@ public class OrderController {
 
 
 
-//查看所有订单
+    //查看所有订单
     @GetMapping("/viewAllOrder")
     @ResponseBody
     public List<Order> viewOrderList() {
         List<Order> order = orderService.getOrderList();
         return order;
     }
+
+    //通过订单号查看订单
+    @GetMapping("/viewOrderByOrderId/{id}")
+    @ResponseBody
+    public Order viewOrderByOrderId(@PathVariable int id) {
+        Order order = orderService.getOrder(id);
+
+        return order;
+    }
+
+    //通过订单号修改订单(lineItems以外的部分）
+    @PutMapping("/updateOrder/{id}")
+    @ResponseBody
+    public void update (@PathVariable("id")int id,@RequestParam(value = "userid", required = false)String username,
+                        @RequestParam(value = "orderdate", required = false)Date orderDate,
+                        @RequestParam(value = "shipaddr1", required = false)String shipAddress1,
+                        @RequestParam(value = "shipaddr2", required = false)String shipAddress2,
+                        @RequestParam(value = "shipcity", required = false)String shipCity,
+                        @RequestParam(value = "shipstate", required = false)String shipState,
+                        @RequestParam(value = "shipzip", required = false)String shipZip,
+                        @RequestParam(value = "shipcountry", required = false)String shipCountry,
+                        @RequestParam(value = "billaddr1", required = false)String billAddress1,
+                        @RequestParam(value = "billaddr2", required = false)String billAddress2,
+                        @RequestParam(value = "billcity", required = false)String billCity,
+                        @RequestParam(value = "billstate", required = false)String billState,
+                        @RequestParam(value = "billzip", required = false)String billZip,
+                        @RequestParam(value = "billcountry", required = false)String billCountry,
+                        @RequestParam(value = "courier", required = false)String courier,
+                        @RequestParam(value = "totalprice", required = false) BigDecimal totalPrice,
+                        @RequestParam(value = "billtofirstname", required = false)String billToFirstName,
+                        @RequestParam(value = "billtolastname", required = false)String billToLastName,
+                        @RequestParam(value = "shiptofirstname", required = false)String shipToFirstName,
+                        @RequestParam(value = "shiptolastname", required = false)String shipToLastName,
+                        @RequestParam(value = "creditcard", required = false)String creditCard,
+                        @RequestParam(value = "exprdate", required = false)String expiryDate,
+                        @RequestParam(value = "cardtype", required = false)String cardType,
+                        @RequestParam(value = "locale", required = false)String locale,
+                        @RequestParam(value = "status", required = false)String status,
+                        @RequestParam(value = "linenum", required = false)Integer linenum){
+        Order order = orderService.getOrder(id);
+        if (username!=null){
+            order.setUsername(username);
+        }
+        if (orderDate!=null){
+            order.setOrderDate(orderDate);
+        }
+        if (shipAddress1!=null){
+            order.setShipAddress1(shipAddress1);
+        }
+        if (shipAddress2!=null){
+            order.setShipAddress2(shipAddress2);
+        }
+        if (shipCity!=null){
+            order.setShipCity(shipCity);
+        }
+        if (shipState!=null){
+            order.setShipState(shipState);
+        }
+        if (shipZip!=null){
+            order.setShipZip(shipZip);
+        }
+        if (shipCountry!=null){
+            order.setShipCountry(shipCountry);
+        }
+        if (billAddress1!=null){
+            order.setBillAddress1(billAddress1);
+        }
+        if (billAddress2!=null){
+            order.setBillAddress2(billAddress2);
+        }
+        if (billCity!=null){
+            order.setBillCity(billCity);
+        }
+        if (billState!=null){
+            order.setBillState(billState);
+        }
+        if (billZip!=null){
+            order.setBillZip(billZip);
+        }
+        if (billCountry!=null){
+            order.setBillCountry(billCountry);
+        }
+        if (courier!=null){
+            order.setCourier(courier);
+        }
+        if (totalPrice!=null){
+            order.setTotalPrice(totalPrice);
+        }
+        if (billToFirstName!=null){
+            order.setBillToFirstName(billToFirstName);
+        }
+        if (billToLastName!=null){
+            order.setBillToLastName(billToLastName);
+        }
+        if (shipToFirstName!=null){
+            order.setShipToFirstName(shipToFirstName);
+        }
+        if (shipToLastName!=null){
+            order.setShipToLastName(shipToLastName);
+        }
+        if (creditCard!=null){
+            order.setCreditCard(creditCard);
+        }
+        if (expiryDate!=null){
+            order.setExpiryDate(expiryDate);
+        }
+        if (cardType!=null){
+            order.setCardType(cardType);
+        }
+        if (status!=null){
+            order.setStatus(status);
+        }
+        if (locale!=null){
+            order.setLocale(locale);
+        }
+        if (linenum!=null){
+            order.setLinenum(linenum);
+        }
+        orderService.updateOrder(order);
+
+
+
+
+    }
+
 
     @GetMapping("/viewOrder")
     public String viewOrder(int orderId, Model model) {
