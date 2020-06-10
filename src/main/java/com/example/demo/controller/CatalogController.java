@@ -170,6 +170,7 @@ public class CatalogController {
     }
 
 
+
     //删除Category(只有当product里没有相应的category才能删)
     @DeleteMapping("/deleteCategory/{id}")
     @ResponseBody

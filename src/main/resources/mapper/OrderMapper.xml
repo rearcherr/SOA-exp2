@@ -131,6 +131,11 @@
     values (#{orderId,jdbcType=NUMERIC}, #{orderId,jdbcType=NUMERIC}, #{orderDate,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR})
     </select>
 
+    <select id="insertLineItem" parameterType="LineItem">
+        insert into lineitem (orderid, linenum, itemid, quantity, unitprice)
+    values (#{orderId}, #{lineNumber}, #{itemId}, #{quantity},#{unitPrice})
+    </select>
+
 
     <update id="updateOrder" parameterType="Order">
         UPDATE orders SET
@@ -173,6 +178,39 @@
         WHERE orderid = #{orderId}
     </update>
 
+    <delete id="deleteLineItem" >
+        DELETE FROM lineitem WHERE ORDERID = #{orderId} AND LINENUM = #{linenum}
+    </delete>
 
+    <delete id="deleteLineItemList" parameterType="int">
+        DELETE FROM lineitem WHERE ORDERID = #{value}
+    </delete>
+    <delete id="deleteOrder" parameterType="int">
+        DELETE FROM orders WHERE ORDERID = #{value}
+    </delete>
+    <delete id="deleteOrderStatus" parameterType="int">
+        DELETE FROM orderstatus WHERE ORDERID = #{value}
+    </delete>
+
+    <select id="getLineItem"  resultType="LineItem">
+    select
+        orderid as orderId,
+        linenum as lineNumber,
+        itemid as itemId,
+        quantity,
+        unitprice as unitPrice
+    from lineitem
+    where lineitem.orderid = #{orderId} and lineitem.linenum = #{lineNumber}
+    </select>
+
+    <update id="updateLineItem" parameterType="LineItem">
+        UPDATE lineitem SET
+            itemid = #{itemId},
+            quantity = #{quantity},
+            unitprice = #{unitPrice}
+
+
+        WHERE lineitem.orderid = #{orderId} and lineitem.linenum = #{lineNumber}
+    </update>
 
 </mapper>

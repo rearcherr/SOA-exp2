@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.sound.sampled.Line;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -160,6 +161,150 @@ public class OrderController {
 
 
     }
+
+    //通过订单号修改lineItem(单个）
+    @PutMapping("/updatelineItem/{id}/{linenum}")
+    @ResponseBody
+    public void update (@PathVariable("id")int id,@PathVariable("linenum")int linenum,
+                        @RequestParam(value = "itemid", required = false)String itemId,
+                        @RequestParam(value = "quantity", required = false)Integer quantity,
+                        @RequestParam(value = "unitprice", required = false)BigDecimal unitPrice){
+        LineItem lineItem = orderService.getLineItem(id,linenum);
+        if(itemId!=null){
+            lineItem.setItemId(itemId);
+        }
+        if (quantity!=null){
+            lineItem.setQuantity(quantity);
+        }
+        if(unitPrice!=null){
+            lineItem.setUnitPrice(unitPrice);
+        }
+        orderService.updateLineItem(lineItem);
+    }
+
+    //新增lineItem(单个)
+    @PostMapping("newLineItem")
+    @ResponseBody
+    public void Creat(@RequestParam("orderid")Integer orderId,
+                      @RequestParam("linenum")Integer lineNumber,
+                      @RequestParam("itemid")String itemId,
+                      @RequestParam("quantity")Integer quantity,
+                      @RequestParam("unitprice")BigDecimal unitPrice){
+        LineItem lineItem = new LineItem();
+        lineItem.setOrderId(orderId);
+        lineItem.setLineNumber(lineNumber);
+        lineItem.setItemId(itemId);
+        lineItem.setQuantity(quantity);
+        lineItem.setUnitPrice(unitPrice);
+        orderService.insertLineItem(lineItem);
+    }
+
+    //删除lineItem(单个)
+    @DeleteMapping("/deleteLineItem/{id}/{linenum}")
+    @ResponseBody
+    public void deleteLineItem(@PathVariable("id")int id,@PathVariable("linenum")int linenum){
+
+        orderService.deleteLineItem(id,linenum);
+    }
+
+
+
+
+
+    //新增Order
+    @PostMapping("newOrder")
+    @ResponseBody
+    public void Creat(@RequestParam(value = "orderid", required = false)int orderId,
+                      @RequestParam(value = "userid", required = false)String username,
+                      @RequestParam(value = "orderdate", required = false)Date orderDate,
+                      @RequestParam(value = "shipaddr1", required = false)String shipAddress1,
+                      @RequestParam(value = "shipaddr2", required = false)String shipAddress2,
+                      @RequestParam(value = "shipcity", required = false)String shipCity,
+                      @RequestParam(value = "shipstate", required = false)String shipState,
+                      @RequestParam(value = "shipzip", required = false)String shipZip,
+                      @RequestParam(value = "shipcountry", required = false)String shipCountry,
+                      @RequestParam(value = "billaddr1", required = false)String billAddress1,
+                      @RequestParam(value = "billaddr2", required = false)String billAddress2,
+                      @RequestParam(value = "billcity", required = false)String billCity,
+                      @RequestParam(value = "billstate", required = false)String billState,
+                      @RequestParam(value = "billzip", required = false)String billZip,
+                      @RequestParam(value = "billcountry", required = false)String billCountry,
+                      @RequestParam(value = "courier", required = false)String courier,
+                      @RequestParam(value = "totalprice", required = false) BigDecimal totalPrice,
+                      @RequestParam(value = "billtofirstname", required = false)String billToFirstName,
+                      @RequestParam(value = "billtolastname", required = false)String billToLastName,
+                      @RequestParam(value = "shiptofirstname", required = false)String shipToFirstName,
+                      @RequestParam(value = "shiptolastname", required = false)String shipToLastName,
+                      @RequestParam(value = "creditcard", required = false)String creditCard,
+                      @RequestParam(value = "exprdate", required = false)String expiryDate,
+                      @RequestParam(value = "cardtype", required = false)String cardType,
+                      @RequestParam(value = "locale", required = false)String locale,
+                      @RequestParam(value = "status", required = false)String status,
+                      @RequestParam(value = "linenum", required = false)Integer linenum){
+        Order order = new Order();
+        order.setOrderId(orderId);
+        order.setUsername(username);
+        order.setOrderDate(orderDate);
+        order.setShipAddress1(shipAddress1);
+        order.setShipAddress2(shipAddress2);
+        order.setShipCity(shipCity);
+        order.setShipState(shipState);
+        order.setShipZip(shipZip);
+        order.setShipCountry(shipCountry);
+        order.setBillAddress1(billAddress1);
+        order.setBillAddress2(billAddress2);
+        order.setBillCity(billCity);
+        order.setBillState(billState);
+        order.setBillZip(billZip);
+        order.setBillCountry(billCountry);
+        order.setCourier(courier);
+        order.setTotalPrice(totalPrice);
+        order.setBillToFirstName(billToFirstName);
+        order.setBillToLastName(billToLastName);
+        order.setShipToFirstName(shipToFirstName);
+        order.setShipToLastName(shipToLastName);
+        order.setCreditCard(creditCard);
+        order.setExpiryDate(expiryDate);
+        order.setCardType(cardType);
+        order.setLocale(locale);
+        order.setStatus(status);
+        order.setLinenum(linenum);
+
+        orderService.insertOrder(order);
+    }
+
+
+    //删除Order
+    @DeleteMapping("/deleteOrder/{id}")
+    @ResponseBody
+    public void deleteOrder(@PathVariable("id")int id){
+
+        orderService.deleteOrder(id);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     @GetMapping("/viewOrder")

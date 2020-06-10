@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Account;
+import com.example.demo.domain.Item;
 import com.example.demo.domain.LineItem;
 import com.example.demo.domain.Order;
 import com.example.demo.persistence.OrderMapper;
@@ -30,6 +31,10 @@ public class OrderService {
 
     public void insertOrder(Order order){
         orderMapper.insertOrder(order);
+        orderMapper.insertOrderStatus(order);
+    }
+    public void insertLineItem(LineItem lineItem){
+        orderMapper.insertLineItem(lineItem);
     }
 
     public List<Order> getOrderList(){
@@ -46,6 +51,10 @@ public class OrderService {
         return orderList1;
     }
 
+    public LineItem getLineItem(int orderId,int lineNumber){
+        LineItem lineItem = orderMapper.getLineItem(orderId,lineNumber);
+        return lineItem;
+    }
 
 
     public void insertOrderStatus(Order order){
@@ -55,6 +64,20 @@ public class OrderService {
     public void updateOrder(Order order){
         orderMapper.updateOrder(order);
         orderMapper.updateOrderStatus(order);
+    }
+
+    public void deleteOrder(int orderId){
+        orderMapper.deleteOrder(orderId);
+        orderMapper.deleteOrderStatus(orderId);
+        orderMapper.deleteLineItemList(orderId);
+
+    }
+
+    public void deleteLineItem(int orderId,int linenum){
+        orderMapper.deleteLineItem(orderId,linenum);
+    }
+    public void updateLineItem(LineItem lineItem){
+        orderMapper.updateLineItem(lineItem);
     }
 
 }
