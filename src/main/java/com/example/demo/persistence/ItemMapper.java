@@ -16,7 +16,7 @@ public interface ItemMapper {
     int getInventoryQuantity(String itemId);
 
     List<Item> getItemListByProduct(String productId);
-
+    List<Item> getItemList();
     Item getItem(String itemId);
 
     void insertItem(Item item);

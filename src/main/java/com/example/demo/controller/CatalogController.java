@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.domain.Account;
-import com.example.demo.domain.Category;
-import com.example.demo.domain.Item;
-import com.example.demo.domain.Product;
+import com.example.demo.domain.*;
 import com.example.demo.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +26,14 @@ public class CatalogController {
         Category category = catalogService.getCategory(id);
         return category;
     }
+    //查看所有category
+    @GetMapping("/viewAllCategory")
+    @ResponseBody
+    public List<Category> viewCategoryList() {
+        List<Category> category = catalogService.getCategoryList();
+        return category;
+    }
+
 
     //通过productId查看商品内容
     @GetMapping("/viewProduct/{id}")
@@ -37,6 +42,13 @@ public class CatalogController {
         Product product = catalogService.getProduct(id);
         return product;
     }
+    //查看所有Product
+    @GetMapping("/viewAllProduct")
+    @ResponseBody
+    public List<Product> viewProductList() {
+        List<Product> products = catalogService.getProdustList();
+        return products;
+    }
 
     //通过itemId查看Item
     @GetMapping("/viewItem/{id}")
@@ -44,6 +56,14 @@ public class CatalogController {
     public Item getItemById(@PathVariable String id) {
         Item item = catalogService.getItem(id);
         return item;
+    }
+
+    //查看所有Item
+    @GetMapping("/viewAllItem")
+    @ResponseBody
+    public List<Item> viewItemList() {
+        List<Item> items = catalogService.getItemList();
+        return items;
     }
 
     //新增Category
@@ -199,16 +219,16 @@ public class CatalogController {
 
 
 
-    private void processProductDescription(Product product) {
-        String[] temp = product.getDescription().split("\"");
-        product.setDescriptionImage("/"+temp[1]);
-        product.setDescriptionText(temp[2].substring(1));
-    }
-
-    private void processProductDescription(List<Product> productList) {
-        for (Product product : productList) {
-            processProductDescription(product);
-        }
-    }
+//    private void processProductDescription(Product product) {
+//        String[] temp = product.getDescription().split("\"");
+//        product.setDescriptionImage("/"+temp[1]);
+//        product.setDescriptionText(temp[2].substring(1));
+//    }
+//
+//    private void processProductDescription(List<Product> productList) {
+//        for (Product product : productList) {
+//            processProductDescription(product);
+//        }
+//    }
 }
 

@@ -25,6 +25,15 @@
         WHERE CATEGORY = #{value}
     </select>
 
+    <select id="getProductList" resultType="Product">
+        SELECT
+            PRODUCTID,
+            NAME,
+            DESCN as description,
+            CATEGORY as categoryId
+        FROM PRODUCT
+    </select>
+
     <select id="searchProductList" parameterType="string" resultType="Product">
         SELECT
             PRODUCTID,
