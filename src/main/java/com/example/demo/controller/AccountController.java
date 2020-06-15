@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 
 import com.example.demo.domain.Account;
+import com.example.demo.domain.Category;
 import com.example.demo.domain.Product;
 import com.example.demo.service.AccountService;
 import com.example.demo.service.CatalogService;
@@ -47,120 +48,120 @@ public class AccountController {
         CATEGORY_LIST = Collections.unmodifiableList(catList);
     }
 
-    //登录表单
-    @GetMapping("signonForm")
-    public String signonForm() {
-        return "account/signon";
-    }
-
-    //登录账户
-    @PostMapping("signon")
-    public String signon(String username, String password, Model model) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-
-        //判断密码并进行加密
-        if(!password.equals("")){
-            password = toMD5(password);
-        }
-
-        Account account = accountService.getAccount(username, password);
-
-        if (account == null) {
-            String msg = "Invalid username or password.  Signon failed.";
-            model.addAttribute("msg", msg);
-            return "account/signon";
-        } else {
-//            account.setPassword(toMD5(account.getPassword()));
-            System.out.println("username: " + account.getUsername() + "password:" + account.getPassword());
-//            account.setPassword(null);
-            List<Product> myList = catalogService.getProductListByCategory(account.getFavouriteCategoryId());
-            boolean authenticated = true;
-            model.addAttribute("account", account);
-            model.addAttribute("myList", myList);
-            model.addAttribute("authenticated", authenticated);
-            return "catalog/main";
-        }
-    }
-
-    //登出
-    @GetMapping("signoff")
-    public String signoff(Model model) {
-        Account loginAccount = new Account();
-        List<Product> myList = null;
-        boolean authenticated = false;
-        model.addAttribute("account", loginAccount);
-        model.addAttribute("myList", myList);
-        model.addAttribute("authenticated", authenticated);
-        return "catalog/main";
-    }
-
-    @GetMapping("editAccountForm")
-    public String editAccountForm(@SessionAttribute("account") Account account, Model model) {
-        model.addAttribute("account", account);
-        model.addAttribute("LANGUAGE_LIST", LANGUAGE_LIST);
-        model.addAttribute("CATEGORY_LIST", CATEGORY_LIST);
-        return "account/edit_account";
-    }
-
-    //修改用户信息
-    @PostMapping("editAccount")
-    public String editAccount(Account account, String repeatedPassword, Model model) {
-        if (account.getPassword() == null || account.getPassword().length() == 0 || repeatedPassword == null || repeatedPassword.length() == 0) {
-            String msg = "密码不能为空";
-            model.addAttribute("msg", msg);
-            return "account/edit_account";
-        } else if (!account.getPassword().equals(repeatedPassword)) {
-            String msg = "两次密码不一致";
-            model.addAttribute("msg", msg);
-            return "account/edit_account";
-        } else {
-            accountService.updateAccount(account);
-            account = accountService.getAccount(account.getUsername());
-            List<Product> myList = catalogService.getProductListByCategory(account.getFavouriteCategoryId());
-            boolean authenticated = true;
-            model.addAttribute("account", account);
-            model.addAttribute("myList", myList);
-            model.addAttribute("authenticated", authenticated);
-            return "redirect:/catalog/index";
-        }
-    }
-
-    //创建一个新的用户表单
-    @GetMapping("newAccountForm")
-    public String newAccountForm(Model model){
-        model.addAttribute("newAccount",new Account());
-        model.addAttribute("LANGUAGE_LIST", LANGUAGE_LIST);
-        model.addAttribute("CATEGORY_LIST", CATEGORY_LIST);
-        return "account/new_account";
-    }
-
-    // 邮箱验证的新账户 跳转
-    @RequestMapping("newAccountFormByEAC")
-    public String newAccountForm_eac(Model model) {
-        model.addAttribute("newAccount",new Account());
-        model.addAttribute("LANGUAGE_LIST", LANGUAGE_LIST);
-        model.addAttribute("CATEGORY_LIST", CATEGORY_LIST);
-        return "account/new_eac_account";
-    }
-
-    //创建一个新的用户
-    @PostMapping("newAccount")
-    public  String newAccount(Account account, Model model) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        //对密码进行加密
-        String temp = toMD5(account.getPassword());
-        account.setPassword(temp);
-        accountService.insertAccount(account);
-        return "catalog/main";
-    }
-
-    //从邮箱创建一个新的用户
-    @PostMapping("newEAccount")
-    public String newEAccount(Account account, Model model) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        //对密码进行加密
-        String temp = toMD5(account.getPassword());
-        account.setPassword(temp);
-        accountService.insertAccount(account);
-        return "catalog/main";
-    }
+//    //登录表单
+//    @GetMapping("signonForm")
+//    public String signonForm() {
+//        return "account/signon";
+//    }
+//
+//    //登录账户
+//    @PostMapping("signon")
+//    public String signon(String username, String password, Model model) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+//
+//        //判断密码并进行加密
+//        if(!password.equals("")){
+//            password = toMD5(password);
+//        }
+//
+//        Account account = accountService.getAccount(username, password);
+//
+//        if (account == null) {
+//            String msg = "Invalid username or password.  Signon failed.";
+//            model.addAttribute("msg", msg);
+//            return "account/signon";
+//        } else {
+////            account.setPassword(toMD5(account.getPassword()));
+//            System.out.println("username: " + account.getUsername() + "password:" + account.getPassword());
+////            account.setPassword(null);
+//            List<Product> myList = catalogService.getProductListByCategory(account.getFavouriteCategoryId());
+//            boolean authenticated = true;
+//            model.addAttribute("account", account);
+//            model.addAttribute("myList", myList);
+//            model.addAttribute("authenticated", authenticated);
+//            return "catalog/main";
+//        }
+//    }
+//
+//    //登出
+//    @GetMapping("signoff")
+//    public String signoff(Model model) {
+//        Account loginAccount = new Account();
+//        List<Product> myList = null;
+//        boolean authenticated = false;
+//        model.addAttribute("account", loginAccount);
+//        model.addAttribute("myList", myList);
+//        model.addAttribute("authenticated", authenticated);
+//        return "catalog/main";
+//    }
+//
+//    @GetMapping("editAccountForm")
+//    public String editAccountForm(@SessionAttribute("account") Account account, Model model) {
+//        model.addAttribute("account", account);
+//        model.addAttribute("LANGUAGE_LIST", LANGUAGE_LIST);
+//        model.addAttribute("CATEGORY_LIST", CATEGORY_LIST);
+//        return "account/edit_account";
+//    }
+//
+//    //修改用户信息
+//    @PostMapping("editAccount")
+//    public String editAccount(Account account, String repeatedPassword, Model model) {
+//        if (account.getPassword() == null || account.getPassword().length() == 0 || repeatedPassword == null || repeatedPassword.length() == 0) {
+//            String msg = "密码不能为空";
+//            model.addAttribute("msg", msg);
+//            return "account/edit_account";
+//        } else if (!account.getPassword().equals(repeatedPassword)) {
+//            String msg = "两次密码不一致";
+//            model.addAttribute("msg", msg);
+//            return "account/edit_account";
+//        } else {
+//            accountService.updateAccount(account);
+//            account = accountService.getAccount(account.getUsername());
+//            List<Product> myList = catalogService.getProductListByCategory(account.getFavouriteCategoryId());
+//            boolean authenticated = true;
+//            model.addAttribute("account", account);
+//            model.addAttribute("myList", myList);
+//            model.addAttribute("authenticated", authenticated);
+//            return "redirect:/catalog/index";
+//        }
+//    }
+//
+//    //创建一个新的用户表单
+//    @GetMapping("newAccountForm")
+//    public String newAccountForm(Model model){
+//        model.addAttribute("newAccount",new Account());
+//        model.addAttribute("LANGUAGE_LIST", LANGUAGE_LIST);
+//        model.addAttribute("CATEGORY_LIST", CATEGORY_LIST);
+//        return "account/new_account";
+//    }
+//
+//    // 邮箱验证的新账户 跳转
+//    @RequestMapping("newAccountFormByEAC")
+//    public String newAccountForm_eac(Model model) {
+//        model.addAttribute("newAccount",new Account());
+//        model.addAttribute("LANGUAGE_LIST", LANGUAGE_LIST);
+//        model.addAttribute("CATEGORY_LIST", CATEGORY_LIST);
+//        return "account/new_eac_account";
+//    }
+//
+//    //创建一个新的用户
+//    @PostMapping("newAccount")
+//    public  String newAccount(Account account, Model model) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+//        //对密码进行加密
+//        String temp = toMD5(account.getPassword());
+//        account.setPassword(temp);
+//        accountService.insertAccount(account);
+//        return "catalog/main";
+//    }
+//
+//    //从邮箱创建一个新的用户
+//    @PostMapping("newEAccount")
+//    public String newEAccount(Account account, Model model) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+//        //对密码进行加密
+//        String temp = toMD5(account.getPassword());
+//        account.setPassword(temp);
+//        accountService.insertAccount(account);
+//        return "catalog/main";
+//    }
 
     //加密函数，用于将接收到的密码加密并返回值
     public static String toMD5(String str) throws NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -199,6 +200,72 @@ public class AccountController {
         Account account = accountService.getAccount(id);
         System.out.println(account);
         return account;
+    }
+
+
+
+    //修改用户信息
+    @PutMapping("/updateAccount/{id}")
+    @ResponseBody
+    public void Update(@PathVariable("id")String id,
+                       @RequestParam(value = "password", required = false)String password,
+                       @RequestParam(value = "email", required = false)String email,
+                       @RequestParam(value = "firstname", required = false)String firstName,
+                       @RequestParam(value = "lastname", required = false)String lastName,
+                       @RequestParam(value = "status", required = false)String status,
+                       @RequestParam(value = "addr1", required = false)String address1,
+                       @RequestParam(value = "addr2", required = false)String address2,
+                       @RequestParam(value = "city",required = false)String city,
+                       @RequestParam(value = "state",required = false)String state,
+                       @RequestParam(value = "zip",required = false)String zip,
+                       @RequestParam(value = "country",required = false)String country,
+                       @RequestParam(value = "phone",required = false)String phone,
+                       @RequestParam(value = "langpref",required = false)String languagePreference,
+                       @RequestParam(value = "favcategory",required = false)String favouriteCategoryId){
+        Account account = accountService.getAccount(id);
+        if (password!=null){
+            account.setPassword(password);
+        }
+        if (email!=null){
+            account.setEmail(email);
+        }
+        if (firstName!=null){
+            account.setFirstName(firstName);
+        }
+        if (lastName!=null){
+            account.setLastName(lastName);
+        }
+        if (status!=null){
+            account.setStatus(status);
+        }
+        if (address1!=null){
+            account.setAddress1(address1);
+        }
+        if (address2!=null){
+            account.setAddress2(address2);
+        }
+        if (city!=null){
+            account.setCity(city);
+        }
+        if (state!=null){
+            account.setState(state);
+        }
+        if (zip!=null){
+            account.setZip(zip);
+        }
+        if (country!=null){
+            account.setCountry(country);
+        }
+        if (phone!=null){
+            account.setPhone(phone);
+        }
+        if (languagePreference!=null){
+            account.setLanguagePreference(languagePreference);
+        }
+        if (favouriteCategoryId!=null){
+            account.setFavouriteCategoryId(favouriteCategoryId);
+        }
+        accountService.updateAccount(account);
     }
 
 
