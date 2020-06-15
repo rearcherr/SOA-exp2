@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-
+import java.security.MessageDigest;
 import com.example.demo.domain.Account;
 import com.example.demo.domain.Category;
 import com.example.demo.domain.Product;
@@ -163,24 +163,63 @@ public class AccountController {
 //        return "catalog/main";
 //    }
 
-    //加密函数，用于将接收到的密码加密并返回值
-    public static String toMD5(String str) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest md=MessageDigest.getInstance("MD5");
-        byte[] strByteArray=str.getBytes("utf-8");
-        byte[] mdByteArray=md.digest(strByteArray);
-        StringBuffer hexValue=new StringBuffer();
-        for(int i=0;i<mdByteArray.length;i++){
-            int val=((int)mdByteArray[i])&0xff;
-            if(val<16){
+//    //加密函数，用于将接收到的密码加密并返回值
+//    public static String toMD5(String str) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+//        MessageDigest md=MessageDigest.getInstance("MD5");
+//        byte[] strByteArray=str.getBytes("utf-8");
+//        byte[] mdByteArray=md.digest(strByteArray);
+//        StringBuffer hexValue=new StringBuffer();
+//        for(int i=0;i<mdByteArray.length;i++){
+//            int val=((int)mdByteArray[i])&0xff;
+//            if(val<16){
+//                hexValue.append("0");
+//            }
+//            hexValue.append(Integer.toHexString(val));
+//        }
+//        return hexValue.toString();
+//
+//    }
+
+
+    public static String string2MD5(String inStr){
+        MessageDigest md5 = null;
+        try{
+            md5 = MessageDigest.getInstance("MD5");
+        }catch (Exception e){
+            System.out.println(e.toString());
+            e.printStackTrace();
+            return "";
+        }
+        char[] charArray = inStr.toCharArray();
+        byte[] byteArray = new byte[charArray.length];
+
+        for (int i = 0; i < charArray.length; i++)
+            byteArray[i] = (byte) charArray[i];
+        byte[] md5Bytes = md5.digest(byteArray);
+        StringBuffer hexValue = new StringBuffer();
+        for (int i = 0; i < md5Bytes.length; i++){
+            int val = ((int) md5Bytes[i]) & 0xff;
+            if (val < 16)
                 hexValue.append("0");
-            }
             hexValue.append(Integer.toHexString(val));
         }
         return hexValue.toString();
 
     }
 
+    /**
+     * 加密解密算法 执行一次加密，两次解密
+     */
+    public static String convertMD5(String inStr){
 
+        char[] a = inStr.toCharArray();
+        for (int i = 0; i < a.length; i++){
+            a[i] = (char) (a[i] ^ 't');
+        }
+        String s = new String(a);
+        return s;
+
+    }
 
 
     //获取所有的用户
@@ -224,7 +263,8 @@ public class AccountController {
                        @RequestParam(value = "favcategory",required = false)String favouriteCategoryId){
         Account account = accountService.getAccount(id);
         if (password!=null){
-            account.setPassword(password);
+            String a = string2MD5(password);
+            account.setPassword(a);
         }
         if (email!=null){
             account.setEmail(email);
