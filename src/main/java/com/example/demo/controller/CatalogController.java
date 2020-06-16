@@ -42,6 +42,15 @@ public class CatalogController {
         Product product = catalogService.getProduct(id);
         return product;
     }
+
+    //通过CategoryId查看product
+    @GetMapping("/viewProductByCategoryId/{id}")
+    @ResponseBody
+    public List<Product> getProductByCategoryId(@PathVariable String id) {
+        List<Product> product = catalogService.getProductListByCategory(id);
+        return product;
+    }
+
     //查看所有Product
     @GetMapping("/viewAllProduct")
     @ResponseBody
@@ -57,7 +66,13 @@ public class CatalogController {
         Item item = catalogService.getItem(id);
         return item;
     }
-
+    //通过ProductId查看Item
+    @GetMapping("/viewItemByProductId/{id}")
+    @ResponseBody
+    public List<Item> getItemByProductId(@PathVariable String id) {
+        List<Item> item = catalogService.getItemListByProduct(id);
+        return item;
+    }
 
     //查看所有Item
     @GetMapping("/viewAllItem")

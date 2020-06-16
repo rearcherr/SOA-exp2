@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Account;
+import com.example.demo.domain.Admin;
 import com.example.demo.persistence.AccountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,12 @@ public class AccountService {
     public List<Account> getAccountList(){
         return accountMapper.getAccountList();
     }
+    public List<Admin> getAdminList(){
+        return accountMapper.getAdminList();
+    }
+    public Admin getAdminById(String admin){
+        return accountMapper.getAdminById(admin);
+    }
 
     /*
         声明式事务处理
@@ -46,6 +53,10 @@ public class AccountService {
         if(account.getPassword() != null && account.getPassword().length() > 0){
             accountMapper.updateSignon(account);
         }
+    }
+
+    public void updateAdmin(Admin admin){
+        accountMapper.updateAdmin(admin);
     }
 
 

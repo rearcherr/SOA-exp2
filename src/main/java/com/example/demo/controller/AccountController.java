@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.security.MessageDigest;
 import com.example.demo.domain.Account;
+import com.example.demo.domain.Admin;
 import com.example.demo.domain.Category;
 import com.example.demo.domain.Product;
 import com.example.demo.service.AccountService;
@@ -330,5 +331,35 @@ public class AccountController {
 //        accountService.insertAccount(account);
 //        return "catalog/main";
 //    }
+
+
+    //由管理员名来获取密码
+    @GetMapping("/searchAdminPass/{id}")
+    @ResponseBody
+    public Admin getAdminPassById(@PathVariable String id) {
+        Admin admin = accountService.getAdminById(id);
+        return admin;
+    }
+
+    //获取所有的管理员
+    @GetMapping("/searchAllAdmin")
+    @ResponseBody
+    public List<Admin>  getAdmin() {
+        List<Admin> admins = accountService.getAdminList();
+        return admins;
+    }
+
+    //修改管理员用户信息
+    @PutMapping("/updateAdmin/{id}")
+    @ResponseBody
+    public void Update(@PathVariable("id")String id,
+                       @RequestParam(value = "password",required = false)String password){
+        Admin admin = accountService.getAdminById(id);
+        if (password!=null){
+            admin.setPassword(password);
+        }
+
+        accountService.updateAdmin(admin);
+    }
 
 }

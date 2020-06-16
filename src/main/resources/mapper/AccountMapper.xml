@@ -30,6 +30,13 @@
             AND PROFILE.USERID = ACCOUNT.USERID
             AND PROFILE.FAVCATEGORY = BANNERDATA.FAVCATEGORY
     </select>
+    <select id="getAdminById" parameterType="string" resultType="Admin">
+        SELECT
+            admin,
+            password
+        FROM ADMIN
+        WHERE admin= #{AdminId}
+    </select>
 
     <select id="getAccountByUsernameAndPassword" parameterType="Account" resultType="Account">
         SELECT
@@ -89,6 +96,12 @@
         WHERE USERID = #{username}
     </update>
 
+    <update id="updateAdmin" parameterType="Admin">
+        UPDATE ADMIN SET
+            password = #{password}
+        WHERE ADMIN = #{admin}
+    </update>
+
     <insert id="insertProfile" parameterType="Account">
         INSERT INTO PROFILE 
             (LANGPREF, FAVCATEGORY, USERID)
@@ -131,6 +144,13 @@
         WHERE SIGNON.USERNAME = ACCOUNT.USERID
             AND PROFILE.USERID = ACCOUNT.USERID
             AND PROFILE.FAVCATEGORY = BANNERDATA.FAVCATEGORY
+    </select>
+
+    <select id="getAdminList" resultType="Admin">
+         SELECT
+             admin,
+            password
+        FROM ADMIN
     </select>
 
 </mapper>
