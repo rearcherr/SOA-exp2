@@ -25,9 +25,11 @@ public class OrderService {
         Order order = orderMapper.getOrder(orderId);
         List<LineItem> lineItems = orderMapper.getLineItemList(orderId);
         order.setLineItems(lineItems);
+        order.setLinenum(order.getLineItems().size());
 
         return order;
     }
+
 
     public void insertOrder(Order order){
         orderMapper.insertOrder(order);
@@ -46,6 +48,110 @@ public class OrderService {
         for (int i=0;i<a;i++){
             o=orderList.get(i);
             o.setLineItems(orderMapper.getLineItemList(o.getOrderId()));
+            o.setLinenum(o.getLineItems().size());
+            orderList1.add(o);
+        }
+        return orderList1;
+    }
+
+    public List<Order> getOrderListByShipAddress1(String shipAddress1){
+        List<Order> orderList = orderMapper.getOrderListByShipAddress1("%" + shipAddress1.toLowerCase() + "%");
+        List<Order> orderList1 = new ArrayList<Order>();
+        int a = orderList.size();
+        Order o ;
+
+        for (int i=0;i<a;i++){
+            o=orderList.get(i);
+            o.setLineItems(orderMapper.getLineItemList(o.getOrderId()));
+            o.setLinenum(o.getLineItems().size());
+            orderList1.add(o);
+        }
+        return orderList1;
+    }
+
+    public List<Order> getOrderListByShipAddress2(String shipAddress2){
+        List<Order> orderList = orderMapper.getOrderListByShipAddress2("%" + shipAddress2.toLowerCase() + "%");
+        List<Order> orderList1 = new ArrayList<Order>();
+        int a = orderList.size();
+        Order o ;
+
+        for (int i=0;i<a;i++){
+            o=orderList.get(i);
+            o.setLineItems(orderMapper.getLineItemList(o.getOrderId()));
+            o.setLinenum(o.getLineItems().size());
+            orderList1.add(o);
+        }
+        return orderList1;
+    }
+
+    public List<Order> getOrderListByBillAddress1(String billAddress1){
+        List<Order> orderList = orderMapper.getOrderListByBillAddress1("%" + billAddress1.toLowerCase() + "%");
+        List<Order> orderList1 = new ArrayList<Order>();
+        int a = orderList.size();
+        Order o ;
+
+        for (int i=0;i<a;i++){
+            o=orderList.get(i);
+            o.setLineItems(orderMapper.getLineItemList(o.getOrderId()));
+            o.setLinenum(o.getLineItems().size());
+            orderList1.add(o);
+        }
+        return orderList1;
+    }
+
+    public List<Order> getOrderListByBillAddress2(String billAddress2){
+        List<Order> orderList = orderMapper.getOrderListByBillAddress2("%" + billAddress2.toLowerCase() + "%");
+        List<Order> orderList1 = new ArrayList<Order>();
+        int a = orderList.size();
+        Order o ;
+
+        for (int i=0;i<a;i++){
+            o=orderList.get(i);
+            o.setLineItems(orderMapper.getLineItemList(o.getOrderId()));
+            o.setLinenum(o.getLineItems().size());
+            orderList1.add(o);
+        }
+        return orderList1;
+    }
+    public List<Order> getOrderListByShipToFirstName(String shipToFirstName){
+        List<Order> orderList = orderMapper.getOrderListByShipToFirstName("%" + shipToFirstName.toLowerCase() + "%");
+        List<Order> orderList1 = new ArrayList<Order>();
+        int a = orderList.size();
+        Order o ;
+
+        for (int i=0;i<a;i++){
+            o=orderList.get(i);
+            o.setLineItems(orderMapper.getLineItemList(o.getOrderId()));
+            o.setLinenum(o.getLineItems().size());
+            orderList1.add(o);
+        }
+        return orderList1;
+    }
+    public List<Order> getOrderListByBillToFirstName(String billToFirstName){
+        List<Order> orderList = orderMapper.getOrderListByBillToFirstName("%" + billToFirstName.toLowerCase() + "%");
+        List<Order> orderList1 = new ArrayList<Order>();
+        int a = orderList.size();
+        Order o ;
+
+        for (int i=0;i<a;i++){
+            o=orderList.get(i);
+            o.setLineItems(orderMapper.getLineItemList(o.getOrderId()));
+            o.setLinenum(o.getLineItems().size());
+            orderList1.add(o);
+        }
+        return orderList1;
+    }
+
+    public List<Order> getOrderListByStatus(String status){
+        List<Order> orderList = orderMapper.getOrderListByStatus("%" + status.toLowerCase() + "%");
+        List<Order> orderList1 = new ArrayList<Order>();
+        int a = orderList.size();
+        Order o ;
+
+        for (int i=0;i<a;i++){
+            o=orderList.get(i);
+            o.setLineItems(orderMapper.getLineItemList(o.getOrderId()));
+            o.setLinenum(o.getLineItems().size());
             orderList1.add(o);
         }
         return orderList1;

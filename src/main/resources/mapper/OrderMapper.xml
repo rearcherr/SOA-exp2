@@ -37,6 +37,228 @@
         order by orderdate
     </select>
 
+    <select id="getOrderListByShipAddress1" parameterType="string" resultType="Order">
+        SELECT
+            billaddr1 as billaddress1,
+        billaddr2 as billaddress2,
+        billcity,
+        billcountry,
+        billstate,
+        billtofirstname,
+        billtolastname,
+        billzip,
+        shipaddr1 as shipAddress1,
+        shipaddr2 as shipAddress2,
+        shipcity,
+        shipcountry,
+        shipstate,
+        shiptofirstname,
+        shiptolastname,
+        shipzip,
+        cardtype,
+        courier,
+        creditcard,
+        exprdate as expiryDate,
+        locale,
+        orderdate,
+        orders.orderid,
+        totalprice,
+        userid as username,
+        status
+        FROM orders, orderstatus
+        WHERE lower(shipaddr1) like #{value} and orders.orderid = orderstatus.orderid
+    </select>
+
+    <select id="getOrderListByShipAddress2" parameterType="string" resultType="Order">
+        SELECT
+            billaddr1 as billaddress1,
+        billaddr2 as billaddress2,
+        billcity,
+        billcountry,
+        billstate,
+        billtofirstname,
+        billtolastname,
+        billzip,
+        shipaddr1 as shipAddress1,
+        shipaddr2 as shipAddress2,
+        shipcity,
+        shipcountry,
+        shipstate,
+        shiptofirstname,
+        shiptolastname,
+        shipzip,
+        cardtype,
+        courier,
+        creditcard,
+        exprdate as expiryDate,
+        locale,
+        orderdate,
+        orders.orderid,
+        totalprice,
+        userid as username,
+        status
+        FROM orders, orderstatus
+        WHERE lower(shipaddr2) like #{value} and orders.orderid = orderstatus.orderid
+    </select>
+
+    <select id="getOrderListByBillAddress1" parameterType="string" resultType="Order">
+        SELECT
+            billaddr1 as billaddress1,
+        billaddr2 as billaddress2,
+        billcity,
+        billcountry,
+        billstate,
+        billtofirstname,
+        billtolastname,
+        billzip,
+        shipaddr1 as shipAddress1,
+        shipaddr2 as shipAddress2,
+        shipcity,
+        shipcountry,
+        shipstate,
+        shiptofirstname,
+        shiptolastname,
+        shipzip,
+        cardtype,
+        courier,
+        creditcard,
+        exprdate as expiryDate,
+        locale,
+        orderdate,
+        orders.orderid,
+        totalprice,
+        userid as username,
+        status
+        FROM orders, orderstatus
+        WHERE lower(billaddr1) like #{value} and orders.orderid = orderstatus.orderid
+    </select>
+
+    <select id="getOrderListByBillAddress2" parameterType="string" resultType="Order">
+        SELECT
+            billaddr1 as billaddress1,
+        billaddr2 as billaddress2,
+        billcity,
+        billcountry,
+        billstate,
+        billtofirstname,
+        billtolastname,
+        billzip,
+        shipaddr1 as shipAddress1,
+        shipaddr2 as shipAddress2,
+        shipcity,
+        shipcountry,
+        shipstate,
+        shiptofirstname,
+        shiptolastname,
+        shipzip,
+        cardtype,
+        courier,
+        creditcard,
+        exprdate as expiryDate,
+        locale,
+        orderdate,
+        orders.orderid,
+        totalprice,
+        userid as username,
+        status
+        FROM orders, orderstatus
+        WHERE lower(billaddr2) like #{value} and orders.orderid = orderstatus.orderid
+    </select>
+
+    <select id="getOrderListByShipToFirstName" parameterType="string" resultType="Order">
+        SELECT
+            billaddr1 as billaddress1,
+        billaddr2 as billaddress2,
+        billcity,
+        billcountry,
+        billstate,
+        billtofirstname,
+        billtolastname,
+        billzip,
+        shipaddr1 as shipAddress1,
+        shipaddr2 as shipAddress2,
+        shipcity,
+        shipcountry,
+        shipstate,
+        shiptofirstname,
+        shiptolastname,
+        shipzip,
+        cardtype,
+        courier,
+        creditcard,
+        exprdate as expiryDate,
+        locale,
+        orderdate,
+        orders.orderid,
+        totalprice,
+        userid as username,
+        status
+        FROM orders, orderstatus
+        WHERE lower(shiptofirstname) like #{value} and orders.orderid = orderstatus.orderid
+    </select>
+    <select id="getOrderListByBillToFirstName" parameterType="string" resultType="Order">
+        SELECT
+            billaddr1 as billaddress1,
+        billaddr2 as billaddress2,
+        billcity,
+        billcountry,
+        billstate,
+        billtofirstname,
+        billtolastname,
+        billzip,
+        shipaddr1 as shipAddress1,
+        shipaddr2 as shipAddress2,
+        shipcity,
+        shipcountry,
+        shipstate,
+        shiptofirstname,
+        shiptolastname,
+        shipzip,
+        cardtype,
+        courier,
+        creditcard,
+        exprdate as expiryDate,
+        locale,
+        orderdate,
+        orders.orderid,
+        totalprice,
+        userid as username,
+        status
+        FROM orders, orderstatus
+        WHERE lower(billtofirstname) like #{value} and orders.orderid = orderstatus.orderid
+    </select>
+    <select id="getOrderListByStatus" parameterType="string" resultType="Order">
+        SELECT
+            billaddr1 as billaddress1,
+        billaddr2 as billaddress2,
+        billcity,
+        billcountry,
+        billstate,
+        billtofirstname,
+        billtolastname,
+        billzip,
+        shipaddr1 as shipAddress1,
+        shipaddr2 as shipAddress2,
+        shipcity,
+        shipcountry,
+        shipstate,
+        shiptofirstname,
+        shiptolastname,
+        shipzip,
+        cardtype,
+        courier,
+        creditcard,
+        exprdate as expiryDate,
+        locale,
+        orderdate,
+        orders.orderid,
+        totalprice,
+        userid as username,
+        status
+        FROM orders, orderstatus
+        WHERE lower(status) like #{value} and orders.orderid = orderstatus.orderid
+    </select>
+
     <select id="getOrderList" resultType="Order">
     select
         billaddr1 as billaddress1,

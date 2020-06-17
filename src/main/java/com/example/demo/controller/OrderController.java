@@ -47,6 +47,66 @@ public class OrderController {
         return order;
     }
 
+    //通过shipAddress1查看订单
+    @GetMapping("/searchOrder/shipAddress1/{id}")
+    @ResponseBody
+    public List<Order> viewOrderListByShipAddress1(@PathVariable String id) {
+        List<Order> orders = orderService.getOrderListByShipAddress1(id);
+
+        return orders;
+    }
+    //通过shipAddress2查看订单
+    @GetMapping("/searchOrder/shipAddress2/{id}")
+    @ResponseBody
+    public List<Order> viewOrderListByShipAddress2(@PathVariable String id) {
+        List<Order> orders = orderService.getOrderListByShipAddress2(id);
+
+        return orders;
+    }
+
+    //通过billAddress1查看订单
+    @GetMapping("/searchOrder/billAddress1/{id}")
+    @ResponseBody
+    public List<Order> viewOrderListByBillAddress1(@PathVariable String id) {
+        List<Order> orders = orderService.getOrderListByBillAddress1(id);
+
+        return orders;
+    }
+    //通过billAddress2查看订单
+    @GetMapping("/searchOrder/billAddress2/{id}")
+    @ResponseBody
+    public List<Order> viewOrderListByBillAddress2(@PathVariable String id) {
+        List<Order> orders = orderService.getOrderListByBillAddress2(id);
+
+        return orders;
+    }
+    //通过shipToFirstName查看订单
+    @GetMapping("/searchOrder/shipToFirstName/{id}")
+    @ResponseBody
+    public List<Order> viewOrderListByShipToFirstName(@PathVariable String id) {
+        List<Order> orders = orderService.getOrderListByShipToFirstName(id);
+
+        return orders;
+    }
+
+    //通过billToFirstName查看订单
+    @GetMapping("/searchOrder/billToFirstName/{id}")
+    @ResponseBody
+    public List<Order> viewOrderListByBillToFirstName(@PathVariable String id) {
+        List<Order> orders = orderService.getOrderListByBillToFirstName(id);
+
+        return orders;
+    }
+
+    //通过status查看订单
+    @GetMapping("/searchOrder/status/{id}")
+    @ResponseBody
+    public List<Order> viewOrderListByStatus(@PathVariable String id) {
+        List<Order> orders = orderService.getOrderListByStatus(id);
+
+        return orders;
+    }
+
     //通过订单号修改订单(lineItems以外的部分）
     @PutMapping("/updateOrder/{id}")
     @ResponseBody

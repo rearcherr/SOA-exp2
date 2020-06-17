@@ -28,4 +28,11 @@ public interface OrderMapper {
     void deleteOrder(int orderId);
     void deleteOrderStatus(int orderId);
     void deleteLineItem(int orderId,int linenum);
+    List<Order> getOrderListByShipAddress1(String shipAddress1);
+    List<Order> getOrderListByShipAddress2(String shipAddress2);
+    List<Order> getOrderListByBillAddress1(String billAddress1);
+    List<Order> getOrderListByBillAddress2(String billAddress2);
+    List<Order> getOrderListByShipToFirstName(String shipToFirstName);
+    List<Order> getOrderListByBillToFirstName(String billToFirstName);
+    List<Order> getOrderListByStatus(String status);
 }
