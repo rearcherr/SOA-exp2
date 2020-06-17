@@ -2,6 +2,7 @@ package com.example.demo.domain;
 
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Category implements Serializable {
     private static final long serialVersionUID = 3992469837058393712L;
@@ -9,6 +10,15 @@ public class Category implements Serializable {
     private String categoryId;
     private String name;
     private String description;
+    private List<Product> products;
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 
     public String getCategoryId() {
         return categoryId;
@@ -37,5 +47,6 @@ public class Category implements Serializable {
     public String toString() {
         return getCategoryId();
     }
+
 
 }

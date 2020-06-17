@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,18 +27,30 @@ public class CatalogService {
     private ItemMapper itemMapper;
 
     public List<Category> getCategoryList() {
-        return categoryMapper.getCategoryList();
+        List<Category> categories = categoryMapper.getCategoryList();
+        List<Product> products = new ArrayList<Product>();
+        int a=categories.size();
+        for(int i=0;i<a;i++){
+            products=productMapper.getProductListByCategory(categories.get(i).getCategoryId());
+            categories.get(i).setProducts(products);
+        }
+        return categories;
     }
     public List<Product> getProdustList() {
         return productMapper.getProductList();
     }
     public Category getCategory(String categoryId) {
-        return categoryMapper.getCategory(categoryId);
+        Category category = categoryMapper.getCategory(categoryId);
+        List<Product> products = productMapper.getProductListByCategory(categoryId);
+        category.setProducts(products);
+        return category;
+
     }
 
     public Product getProduct(String productId) {
         return productMapper.getProduct(productId);
     }
+
 
     public List<Product> getProductListByCategory(String categoryId) {
         return productMapper.getProductListByCategory(categoryId);
@@ -48,13 +61,36 @@ public class CatalogService {
     }
 
     public List<Item> getItemListByProduct(String productId){
-        return itemMapper.getItemListByProduct(productId);
+
+        List<Item> c = itemMapper.getItemListByProduct(productId);
+        List<Item> items = new ArrayList<Item>();
+        int a = c.size();
+        int b;
+        for(int i=0;i<a;i++){
+            b=itemMapper.getInventoryQuantity(c.get(i).getItemId());
+            c.get(i).setQuantity(b);
+            items.add(c.get(i));
+        }
+        return items;
     }
     public List<Item> getItemList(){
-        return itemMapper.getItemList();
+        List<Item> c =itemMapper.getItemList();
+        List<Item> items = new ArrayList<Item>();
+        int a = c.size();
+        int b;
+        for(int i=0;i<a;i++){
+            b=itemMapper.getInventoryQuantity(c.get(i).getItemId());
+            c.get(i).setQuantity(b);
+            items.add(c.get(i));
+        }
+        return items;
     }
     public Item getItem(String itemId){
-        return itemMapper.getItem(itemId);
+        Item item = itemMapper.getItem(itemId);
+        int b;
+        b=itemMapper.getInventoryQuantity(itemId);
+        item.setQuantity(b);
+        return item;
     }
 
     public boolean isItemInStock(String itemId){

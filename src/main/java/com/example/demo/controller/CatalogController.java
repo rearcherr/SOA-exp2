@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/catalog")
@@ -72,6 +72,25 @@ public class CatalogController {
     public List<Item> getItemByProductId(@PathVariable String id) {
         List<Item> item = catalogService.getItemListByProduct(id);
         return item;
+    }
+
+    //通过ProductName查看Item
+    @GetMapping("/viewItemByProductName/{id}")
+    @ResponseBody
+    public List<Item> getItemByProductName(@PathVariable String id) {
+        List<Product> products = catalogService.searchProductList(id);
+        int a = products.size();
+        List<Item> items = new ArrayList<Item>();
+        List<Item> b = new ArrayList<Item>();
+
+
+        for(int i=0;i<a;i++){
+            b = catalogService.getItemListByProduct(products.get(i).getProductId());
+            for(int j=0;j<b.size();j++){
+                items.add(b.get(j));
+            }
+        }
+        return items;
     }
 
     //查看所有Item
