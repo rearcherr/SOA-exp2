@@ -134,4 +134,9 @@ public class CatalogService {
         itemMapper.deleteItem(item);
         itemMapper.deleteInventory(item);
     }
+
+    public List<Item> getProductByIdAndKeyword(String keyword){ return itemMapper.getProductByIdAndKeyword(keyword); }
+    public List<Item> getProductByNameAndKeyword(String keyword){ return itemMapper.getProductByNameAndKeyword(keyword); }
+    public List<Item> getProductByAttrAndKeyword(String keyword){ return itemMapper.getProductByAttrAndKeyword(keyword); }
+    public List<Item> getProductByALL(String keyword){ return itemMapper.getProductByAllAndKeyword(); }
 }

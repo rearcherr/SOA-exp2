@@ -30,4 +30,12 @@ public interface ItemMapper {
     void deleteItem(Item item);
 
     void deleteInventory(Item item);
+
+    List<Item> getProductByIdAndKeyword(String keyword);
+
+    List<Item> getProductByNameAndKeyword(String keyword);
+
+    List<Item> getProductByAttrAndKeyword(String keyword);
+
+    List<Item> getProductByAllAndKeyword();
 }

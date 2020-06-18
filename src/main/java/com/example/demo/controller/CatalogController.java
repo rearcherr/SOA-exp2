@@ -249,11 +249,37 @@ public class CatalogController {
     }
 
 
+    //根据关键词id查找商品
+    @GetMapping("/catalog/searchItem/id/{keyword}")
+    @ResponseBody
+    public List<Item> getProductByIdAndKeyword(@PathVariable String id) {
+        List<Item> item = catalogService.getProductByIdAndKeyword(id);
+        return item;
+    }
 
+    //根据关键词name查找商品
+    @GetMapping("/catalog/searchItem/name/{keyword}")
+    @ResponseBody
+    public List<Item> getProductByNameAndKeyword(@PathVariable String id) {
+        List<Item> item = catalogService.getProductByNameAndKeyword(id);
+        return item;
+    }
 
+    //根据关键词id查找商品
+    @GetMapping("/catalog/searchItem/attr/{keyword}")
+    @ResponseBody
+    public List<Item> getProductByAttrAndKeyword(@PathVariable String id) {
+        List<Item> item = catalogService.getProductByAttrAndKeyword(id);
+        return item;
+    }
 
-
-
+    //根据关键词id查找商品
+    @GetMapping("/catalog/searchItem/ALL/")
+    @ResponseBody
+    public List<Item> getProductByALL(@PathVariable String id) {
+        List<Item> item = catalogService.getProductByALL(id);
+        return item;
+    }
 //    private void processProductDescription(Product product) {
 //        String[] temp = product.getDescription().split("\"");
 //        product.setDescriptionImage("/"+temp[1]);
