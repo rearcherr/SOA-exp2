@@ -137,12 +137,12 @@
         WHERE ATTR1 LIKE %#{keyword}% AND P.PRODUCTID = I.PRODUCTID
     </select>
 
-    <select id="getProductByIdAndKeyword" parameterType="string" resultType="Item">
-        SELECT  *
-        FROM ITEM I, PRODUCT P
-        WHERE P.PRODUCTID = I.PRODUCTID
+<!--    <select id="getProductByIdAndKeyword" parameterType="string" resultType="Item">-->
+<!--        SELECT  *-->
+<!--        FROM ITEM I, PRODUCT P-->
+<!--        WHERE P.PRODUCTID = I.PRODUCTID-->
 
-    </select>
+<!--    </select>-->
 
     <update id="updateInventoryQuantity" parameterType="map">
         UPDATE INVENTORY SET
