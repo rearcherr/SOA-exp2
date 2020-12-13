@@ -36,8 +36,8 @@ public class SwaggerConfig {
      */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("mypetstore后台管理系统后端api文档")
-                .description("mypetstore")
+                .title("SOA实验二")
+                .description("Restful API的开发、部署与调用")
 
                 //版本描述
                 .version("1.0")

@@ -1,10 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.service.CatalogService;
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
 
 @SpringBootTest
 class DemoApplicationTests {
