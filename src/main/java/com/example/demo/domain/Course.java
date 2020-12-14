@@ -2,10 +2,10 @@ package com.example.demo.domain;
 
 import java.io.Serializable;
 
-public class Student implements Serializable {
+public class Course implements Serializable {
     private int id;
     private String name;
-    private int age;
+    private int credit;
 
     public int getId() {
         return id;
@@ -23,12 +23,11 @@ public class Student implements Serializable {
         this.name = name;
     }
 
-    public int getAge() {
-        return age;
+    public int getCredit() {
+        return credit;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setCredit(int credit) {
+        this.credit = credit;
     }
-
 }

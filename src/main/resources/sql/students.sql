@@ -11,11 +11,30 @@
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 14/12/2020 00:10:45
+ Date: 14/12/2020 01:22:50
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for course
+-- ----------------------------
+DROP TABLE IF EXISTS `course`;
+CREATE TABLE `course`  (
+  `id` int NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `credit` int NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of course
+-- ----------------------------
+INSERT INTO `course` VALUES (2, '高数', 5);
+INSERT INTO `course` VALUES (3, 'soa', 2);
+INSERT INTO `course` VALUES (4, '日语', 4);
+INSERT INTO `course` VALUES (5, '云计算', 2);
 
 -- ----------------------------
 -- Table structure for student
